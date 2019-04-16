@@ -66,3 +66,44 @@ scanf("%d", &p1_list[i].burst_time);
 p1_list[i].flag = 0;
 b_t = b_t + p1_list[i].burst_time;
 }
+Sorting();
+for(i=0;i<n;i++)
+{
+a[i]=p1_list[i].burst_time;
+}
+p1_list[9].burst_time = 9999;
+for(t = p1_list[0].arrival_time; t <= b_t+1;)
+{
+peak = 9;
+for(i=0;i<n;i++)
+{
+if(p1_list[i].arrival_time <= t && p1_list[i].burst_time < p1_list[peak].burst_time && p1_list[i].flag != 1)
+{
+peak = i;
+}
+if(p1_list[peak].burst_time==0 && p1_list[i].flag != 1)
+{
+p1_list[i].flag = 1;
+p1_list[peak].ctime=t;p1_list[peak].burst_time=9999;
+printf("P%d completes in %d\n",p1_list[i].p_no,p1_list[peak].ctime);
+}
+}
+t++;
+(p1_list[peak].burst_time)--;
+}
+for(i=0;i<n;i++)
+{
+p1_list[i].taround_time=(p1_list[i].ctime)-(p1_list[i].arrival_time);
+avg_taround_time1=avg_taround_time1+p1_list[i].taround_time;
+p1_list[i].wait_time1=((p1_list[i].taround_time)-a[i]);
+avg_w_t1=avg_w_t1+p1_list[i].wait_time1;
+}
+printf("PNO\tAT\tCT\tTA\tWTt\n");
+for(i=0;i<n;i++)
+{
+printf("P%d\t%d\t%d\t%d\t%d\n",p1_list[i].p_no,p1_list[i].arrival_time,p1_list[i].ctime,p1_list[i].taround_time
+,p1_list[i].wait_time1);
+ }
+printf("Average Turn around Time: %f\t\n\n",avg_taround_time1);
+printf("Average Waiting Time :\t %f\t\n",avg_w_t1);
+}
