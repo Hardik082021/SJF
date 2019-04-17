@@ -6,6 +6,7 @@ struct process
 int p_no;
 
 int arrival_time,burst_time,ctime,wait_time1,taround_time,p;
+int priority;
 
 int flag;
  }p1_list[100];
@@ -39,6 +40,36 @@ p1_list[r] = p;
 
 }
  } //to sort the process so the process with minimum arrival time 
+ void Sorting2()//sort the process according to the priority
+ {
+struct process p;
+
+int q, r;
+
+for(q=0;q<n-1;q++)
+
+{
+
+for(r=q+1;r<n;r++)
+
+{
+
+if(p1_list[q].priority < p1_list[r].priority)
+
+{
+
+p = p1_list[q];
+
+p1_list[q] = p1_list[r];
+
+p1_list[r] = p;
+
+}
+
+}
+
+}
+ } 
  int main()
  {
 
@@ -96,14 +127,26 @@ for(i=0;i<n;i++)
 p1_list[i].taround_time=(p1_list[i].ctime)-(p1_list[i].arrival_time);
 avg_taround_time1=avg_taround_time1+p1_list[i].taround_time;
 p1_list[i].wait_time1=((p1_list[i].taround_time)-a[i]);
+p1_list[i].priority=1+(p1_list[i].wait_time1%p1_list[i].burst_time);//taround_time);
 avg_w_t1=avg_w_t1+p1_list[i].wait_time1;
 }
-printf("PNO\tAT\tCT\tTA\tWTt\n");
+printf("PNO\tAT\tCT\tTA\tWTt\t Priority\n");
 for(i=0;i<n;i++)
 {
-printf("P%d\t%d\t%d\t%d\t%d\n",p1_list[i].p_no,p1_list[i].arrival_time,p1_list[i].ctime,p1_list[i].taround_time
-,p1_list[i].wait_time1);
+printf("P%d\t%d\t%d\t%d\t%d\t%d\n",p1_list[i].p_no,p1_list[i].arrival_time,p1_list[i].ctime,p1_list[i].taround_time
+,p1_list[i].wait_time1,p1_list[i].priority);
  }
 printf("Average Turn around Time: %f\t\n\n",avg_taround_time1);
 printf("Average Waiting Time :\t %f\t\n",avg_w_t1);
+Sorting2();
+printf("\nPNO\tAT\tCT\tTA\tWTt\t Priority\n");
+for(i=0;i<n;i++)
+{
+printf("P%d\t%d\t%d\t%d\t%d\t%d\n",p1_list[i].p_no,p1_list[i].arrival_time,p1_list[i].ctime,p1_list[i].taround_time
+,p1_list[i].wait_time1,p1_list[i].priority);
+
+}
+printf("\n\n thus the process are listed in terms of priority in descending order");
+printf("\n thus the process with higher priority will be executed first than the process with lowest priority");
+return 0;
 }
